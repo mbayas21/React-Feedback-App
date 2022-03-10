@@ -1,5 +1,6 @@
+import { motion, AnimatePresence } from "framer-motion";
 import FeedbackItem from "./FeedbackItem";
-import PropTypes  from "prop-types";
+import PropTypes from "prop-types";
 
 const FeedbackList = ({ feedback, handleDelete }) => {
   if (!feedback || feedback.length === 0) {
@@ -7,21 +8,42 @@ const FeedbackList = ({ feedback, handleDelete }) => {
   }
 
   return (
-    <div className="feedback-list">
+    <AnimatePresence>
       {feedback.map((item) => (
-        <FeedbackItem rating={item.rating} text={item.text} id={item.id} key={item.id} handleDelete={handleDelete}/>
+        <motion.div
+         key={item.id}
+         initial={{opacity:0}}
+         animate={{opacity: 1}}
+         exit={{opacity: 0}}
+         >
+          <FeedbackItem
+            rating={item.rating}
+            text={item.text}
+            id={item.id}
+            key={item.id}
+            handleDelete={handleDelete}
+          />
+        </motion.div>
       ))}
-    </div>
+    </AnimatePresence>
   );
+
+  // return (
+  //   <div className="feedback-list">
+  //     {feedback.map((item) => (
+  //       <FeedbackItem rating={item.rating} text={item.text} id={item.id} key={item.id} handleDelete={handleDelete}/>
+  //     ))}
+  //   </div>
+  // );
 };
 
-FeedbackList.propTypes = {
-    feedback: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            text: PropTypes.string.isRequired,
-            rating: PropTypes.number.isRequired,
-        })
-    )
-}
+// FeedbackList.propTypes = {
+//     feedback: PropTypes.arrayOf(
+//         PropTypes.shape({
+//             id: PropTypes.number.isRequired,
+//             text: PropTypes.string.isRequired,
+//             rating: PropTypes.number.isRequired,
+//         })
+//     )
+// }
 export default FeedbackList;
