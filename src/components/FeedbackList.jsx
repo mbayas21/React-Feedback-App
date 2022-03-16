@@ -1,8 +1,12 @@
 import { motion, AnimatePresence } from "framer-motion";
 import FeedbackItem from "./FeedbackItem";
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import FeedbackContext from "../context/FeedbackContext";
 
-const FeedbackList = ({ feedback, handleDelete }) => {
+const FeedbackList = () => {
+  const { feedback } = useContext(FeedbackContext);
+
   if (!feedback || feedback.length === 0) {
     return <p>No feedback items yet</p>;
   }
@@ -11,17 +15,16 @@ const FeedbackList = ({ feedback, handleDelete }) => {
     <AnimatePresence>
       {feedback.map((item) => (
         <motion.div
-         key={item.id}
-         initial={{opacity:0}}
-         animate={{opacity: 1}}
-         exit={{opacity: 0}}
-         >
+          key={item.id}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
           <FeedbackItem
             rating={item.rating}
             text={item.text}
             id={item.id}
             key={item.id}
-            handleDelete={handleDelete}
           />
         </motion.div>
       ))}
