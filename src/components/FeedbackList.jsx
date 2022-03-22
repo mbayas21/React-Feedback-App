@@ -1,6 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
 import FeedbackItem from "./FeedbackItem";
-import PropTypes from "prop-types";
 import { useContext } from "react";
 import FeedbackContext from "../context/FeedbackContext";
 
@@ -20,12 +19,7 @@ const FeedbackList = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <FeedbackItem
-            rating={item.rating}
-            text={item.text}
-            id={item.id}
-            key={item.id}
-          />
+          <FeedbackItem key={item.id} item={item} />
         </motion.div>
       ))}
     </AnimatePresence>
